@@ -5,6 +5,7 @@ import com.redfoxsoft.entrevista.Repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,14 @@ public class EmployeeService {
 
     public Optional<Employee> findByName(String nameEmployee){
         return employeeRepository.findByName(nameEmployee);
+    }
+
+    public Optional<Employee> findById(Long id){
+        return employeeRepository.findById(id);
+    }
+
+    public Employee updateEmployee(Employee employee) {
+        return employeeRepository.save(employee);
     }
 
 

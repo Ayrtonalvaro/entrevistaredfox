@@ -3,6 +3,7 @@ package com.redfoxsoft.entrevista.Controller;
 import com.redfoxsoft.entrevista.Entity.Employee;
 import com.redfoxsoft.entrevista.Service.EmployeeService;
 import com.redfoxsoft.entrevista.Service.MoneyCalculatorService;
+import com.redfoxsoft.entrevista.dto.EmployeeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,15 @@ public class EmployeeController {
             amountMoney = MoneyCalculatorService.moneyCalculate(salary);
         }
         return new ResponseEntity<>(amountMoney, HttpStatus.OK);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateEmployee(@PathVariable("id") Long id, @RequestBody EmployeeDto employeeDto){
+        Employee employee = employeeService.findById(id).get();
+        employee.setSalary(employeeDto.getSalary());
+        employeeService.updateEmployee(employee);
+        return new ResponseEntity<>("Employee updated", HttpStatus.OK);
+
     }
 
 }
